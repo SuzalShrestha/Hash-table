@@ -55,7 +55,23 @@ class HashTable {
   }
   insert(key, value) {
     // Your code here
-    
+    let index = this.hashMod(key);
+    if (this.data[index] === null) {
+      this.data[index] = new KeyValuePair(key, value);
+      this.count++;
+    } else {
+      let curr = this.data[index];
+      while (curr.next) {
+        curr = curr.next;
+      }
+      if (curr.key === key) {
+        curr.value = value;
+        return;
+      }
+      this.data[index] = new KeyValuePair(key, value);
+      this.data[index].next = curr;
+      this.count++;
+    }
   }
 }
 module.exports = HashTable;
